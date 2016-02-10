@@ -29,7 +29,6 @@ echo "master  = ${target_branch}"
 echo "$branch_name -> $target_branch ?"
 assert_user_enter
 
-
 # マージを行う
 git checkout -f $target_branch
 git pull origin $target_branch

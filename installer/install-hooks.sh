@@ -3,7 +3,7 @@
 install_dir=".git/hooks"
 branch="master"
 
-if [ -e "$install_dir"]; then
+if [ -e "$install_dir" ]; then
   echo "install dir -> $install_dir"
 else
   echo "$install_dir :  directory not found"

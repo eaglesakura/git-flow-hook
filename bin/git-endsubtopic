@@ -31,12 +31,18 @@ assert_user_enter
 
 # マージを行う
 git checkout -f $target_branch
-git pull origin $target_branch
 assert_true
+# 必要であればリモートから最新状態を取り出す
+git pull origin $target_branch
 git checkout -b $branch_name-merge/$target_branch
 assert_true
 git merge $branch_name
 assert_true
+
+# マージ状態をチェックして、完了を確認する
+git status
+echo "merge completed ?"
+assert_user_enter
 
 # ビルド検証が成功したら、元のブランチに戻す
 git checkout -f $target_branch

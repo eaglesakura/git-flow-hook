@@ -33,6 +33,7 @@ assert_user_enter_or_revert()
     git checkout -f $1
     git branch -D $2
     git clean -f .
+    echo "merge abort..."
     exit 1
   fi
 }

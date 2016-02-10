@@ -1,0 +1,17 @@
+#! /bin/sh
+source eshook-common.sh
+
+# 現在のブランチ名を保存
+read branch_name < ./.git/HEAD
+echo $branch_name | sed -e "s/ref: refs\/heads\///">.branchname.txt
+read branch_name < .branchname.txt
+rm .branchname.txt
+
+echo "merge $branch_name -> $develop_branch"
+assert_user_enter
+
+# 必要な変数をチェックする
+git checkout -f "$develop_branch"
+git merge "$branch_name"
+git branch -d "$branch_name"
+git push origin $develop_branch

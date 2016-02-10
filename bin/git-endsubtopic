@@ -1,0 +1,43 @@
+#! /bin/sh
+source eshook-common.sh
+
+# ブランチ名を取得
+read_branchname
+
+# マージ対象のブランチを設定する
+if [ -n "$1" ]; then
+  target_branch=$1
+else
+  target_branch="master"
+fi
+
+# ブランチ名はid/xxxx/hogeになっているはずだから、id/xxxx/masterに置換する
+echo $branch_name | sed -e "s/id\/[0-9]\{0,100\}\///">temp.txt
+read nowbranch < temp.txt
+rm temp.txt
+
+# ターゲットブランチ名を合成
+echo $branch_name | sed -e "s/$nowbranch/master/">temp.txt
+read target_branch < temp.txt
+rm temp.txt
+
+# 移植先のブランチ名を吐き出す
+echo "$branch_name -> $target_branch ?"
+assert_user_enter
+
+
+# マージを行う
+git checkout -f $target_branch
+git pull origin $target_branch
+assert_true
+git checkout -b $branch_name-merge/$target_branch
+assert_true
+git merge $branch_name
+assert_true
+
+# ビルド検証が成功したら、元のブランチに戻す
+assert_build_success
+git checkout -f $target_branch
+git merge $branch_name-merge/$target_branch
+git branch -d $branch_name-merge/$target_branch
+git branch -d $branch_name

@@ -40,9 +40,12 @@ git merge $branch_name
 assert_true
 
 # マージ状態をチェックして、完了を確認する
+echo "#################################################"
+echo "#                  merge status                 #"
+echo "################################################"
 git status
 echo "merge completed ?"
-assert_user_enter
+assert_user_enter_or_revert "$branch_name" "$branch_name-merge/$target_branch"
 
 # ビルド検証が成功したら、元のブランチに戻す
 git checkout -f $target_branch

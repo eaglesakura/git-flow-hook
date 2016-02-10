@@ -22,6 +22,21 @@ assert_user_enter()
   fi
 }
 
+# ユーザーに作業を行うか確認を行う
+# assert_user_enter_or_revert  revert_branch_name delete_branch_name
+assert_user_enter_or_revert()
+{
+  echo "Y/n ?"
+  read INPUT
+  if [ $INPUT != "Y" ]; then
+    echo "revert branch"
+    git checkout -f $1
+    git branch -D $2
+    git clean
+    exit 1
+  fi
+}
+
 # 直前の実行が失敗した場合スクリプトを終了する
 assert_true()
 {

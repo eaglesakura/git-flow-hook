@@ -1,7 +1,7 @@
 #! /bin/sh
 
 install_dir="/user/local/bin"
-branch="master"
+branch="develop"
 
 install_script() {
   echo "install -> $1"

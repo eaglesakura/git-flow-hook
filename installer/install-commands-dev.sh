@@ -1,6 +1,6 @@
 #! /bin/sh
-
-install_dir="/user/local/bin"
+# sh -c "$(curl -fsSL https://raw.githubusercontent.com/eaglesakura/git-flow-hook/master/installer/install-commands.sh)"
+install_dir="/usr/local/bin"
 branch="develop"
 
 install_script() {

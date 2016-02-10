@@ -1,6 +1,6 @@
 #! /bin/sh
 
-install_dir="/user/local/bin"
+install_dir="/usr/local/bin"
 branch="master"
 
 install_script() {

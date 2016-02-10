@@ -1,10 +1,10 @@
 #! /bin/sh
 
-install_dir="/user/local/bin"
+install_dir="/usr/local/bin"
 
 install_script() {
   echo "install -> $1"
-  wget -O "$install_dir/$1" "https://raw.githubusercontent.com/eaglesakura/git-flow-hook/master/bin/$1"
+  cp -f "./bin/$1" "$install_dir/$1"
   chmod 755 "$install_dir/$1"
 }
 

@@ -11,8 +11,8 @@ else
   target_branch="master"
 fi
 
-# ブランチ名はid/xxxx/hogeになっているはずだから、id/xxxx/masterに置換する
-echo $branch_name | sed -e "s/id\/[0-9]\{0,100\}\///">temp.txt
+# ブランチ名はfeature/id/xxxx/hogeになっているはずだから、feature/id/xxxx/masterに置換する
+echo $branch_name | sed -e "s/feature\/id\/[0-9]\{0,100\}\///">temp.txt
 read nowbranch < temp.txt
 rm temp.txt
 
@@ -20,6 +20,10 @@ rm temp.txt
 echo $branch_name | sed -e "s/$nowbranch/master/">temp.txt
 read target_branch < temp.txt
 rm temp.txt
+
+echo "branch  = ${branch_name}"
+echo "topic   = ${nowbranch}"
+echo "master  = ${target_branch}"
 
 # 移植先のブランチ名を吐き出す
 echo "$branch_name -> $target_branch ?"
@@ -36,7 +40,6 @@ git merge $branch_name
 assert_true
 
 # ビルド検証が成功したら、元のブランチに戻す
-assert_build_success
 git checkout -f $target_branch
 git merge $branch_name-merge/$target_branch
 git branch -d $branch_name-merge/$target_branch

@@ -32,7 +32,7 @@ assert_user_enter_or_revert()
     echo "revert branch"
     git checkout -f $1
     git branch -D $2
-    git clean
+    git clean -f .
     exit 1
   fi
 }

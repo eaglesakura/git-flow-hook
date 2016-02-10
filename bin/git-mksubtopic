@@ -1,0 +1,21 @@
+#! /bin/sh
+source eshook-common.sh
+
+# ブランチ名を取得
+read_branchname
+
+# マージ対象のブランチを設定する
+if [ -n "$1" ]; then
+  target_branch=$1
+else
+  echo prease input subtopic name
+  exit 1
+fi
+
+# ブランチ名はid/xxxx/hogeになっているはずだから、id/xxxx/masterに置換する
+echo $branch_name | sed -e "s/master/$target_branch/">temp.txt
+read nextbranch < temp.txt
+rm temp.txt
+
+# ターゲットブランチ名を合成
+git checkout -b $nextbranch

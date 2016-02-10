@@ -1,0 +1,46 @@
+#! /bin/sh
+# source ./repoinfo
+
+# 必要な変数をチェックする
+#   if [ -n "$develop_branch" ]; then
+#      echo "develop branch is $develop_branch"
+#   else
+#      echo "not exist develop_branch"
+#      exit 1
+#   fi
+
+source eshook-common.sh
+
+# ユーザーに許可をさせる
+echo "end this topic?"
+assert_user_enter
+
+# コミットし忘れ防止
+git commit -a -m "close this topic"
+
+# #closeを加えてログ生成
+git log | grep -e "#" > logtemp.txt
+read close_comment < logtemp.txt
+echo $close_comment | sed -e "s/refs #/closes #/" > logtemp.txt
+read close_comment < logtemp.txt
+rm logtemp.txt
+git commit --amend -m "$close_comment"
+
+if [ -f ./build ]; then
+  ./build
+  # ビルドに失敗したら更新しない
+  if [ $? -ne 0 ]; then
+     exit 1
+  fi
+fi
+
+# ブランチ名を保存
+read branch_name < ./.git/HEAD
+echo $branch_name | sed -e "s/ref: refs\/heads\/feature\///">.branchname.txt
+read branch_name < .branchname.txt
+rm .branchname.txt
+echo "merge $branch_name -> $develop_branch"
+
+# ビルドに成功したからfeatureを閉じる
+git flow feature finish $branch_name
+git status

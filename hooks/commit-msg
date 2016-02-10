@@ -1,0 +1,37 @@
+#! /bin/sh
+
+if [ -n "${GIT_DIR}" ]; then
+    hooksdir="./${GIT_DIR}/hooks/"
+else
+    hooksdir="./"
+fi
+
+. "${hooksdir}common.sh"
+
+ticket="$(extractTicketId)"
+if [ -n "${ticket}" ]; then
+     appendMsgTo1stLine "$1" "${ticket}"
+    
+     read git_comment < "$1"
+     # add closes?
+#     echo "comment :: $git_comment"
+     echo $git_comment | sed -e "s/ #close refs/ closes/" > $1
+     
+     echo "----------------"
+     echo "$git_comment"
+     echo "----------------"
+     if expr "$git_comment" : ".*#close" >/dev/null; then
+        echo "close ticket"
+        echo "check build..."
+        if [ -f ./build ]; then
+          ./build
+          if [ $? -ne 0 ]; then
+              echo "build error!!"
+              exit 1
+          fi
+        else
+          echo "build file not exist..."
+        fi
+        echo "commit ok"
+     fi
+fi

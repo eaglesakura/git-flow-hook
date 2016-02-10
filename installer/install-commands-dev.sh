@@ -1,5 +1,5 @@
 #! /bin/sh
-# sh -c "$(curl -fsSL https://raw.githubusercontent.com/eaglesakura/git-flow-hook/master/installer/install-commands.sh)"
+# sh -c "$(curl -fsSL https://raw.githubusercontent.com/eaglesakura/git-flow-hook/develop/installer/install-commands-dev.sh)"
 install_dir="/usr/local/bin"
 branch="develop"
 

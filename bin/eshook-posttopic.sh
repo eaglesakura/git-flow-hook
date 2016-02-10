@@ -1,6 +1,5 @@
 #! /bin/sh
 source eshook-common.sh
-source eshook-repoinfo.sh
 
 # ブランチ名を取得
 read_branchname

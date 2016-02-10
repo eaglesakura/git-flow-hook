@@ -6,15 +6,7 @@ export develop_branch="develop"
 # ブランチ名を取得して、$branch_nameに格納する
 read_branchname()
 {
-  if[ -e ./.git/HEAD ]; then
-    echo "read branchname"
-  else
-    echo ".git directory not found..."
-    exit 1
-  fi
-
-  read branch_name < ./.git/HEAD
-  echo $branch_name | sed -e "s/ref: refs\/heads\///">.branchname.txt
+  git rev-parse --abbrev-ref @ > .branchname.txt
   read branch_name < .branchname.txt
   rm .branchname.txt
 }
@@ -30,16 +22,18 @@ assert_user_enter()
   fi
 }
 
-# ビルドを行なって、失敗したらスクリプトの実行を終了する
-assert_build_success()
+# ユーザーに作業を行うか確認を行う
+# assert_user_enter_or_revert  revert_branch_name delete_branch_name
+assert_user_enter_or_revert()
 {
-  if [ -f ./build ]; then
-    ./build
-    if [ $? -ne 0 ]; then
-      exit 1
-    fi
-  else
-    echo "build script not exist..."
+  echo "Y/n ?"
+  read INPUT
+  if [ $INPUT != "Y" ]; then
+    echo "revert branch"
+    git checkout -f $1
+    git branch -D $2
+    git clean
+    exit 1
   fi
 }
 

@@ -10,7 +10,7 @@ git-flowをゆるく利用するための拡張スクリプト集です。
 Cygwinの場合はsudo不要です。
 
 git拡張コマンド(/usr/local/binにインストールされます。一度のみの実行で問題ありません)
- * sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/eaglesakura/git-flow-hook/develop/installer/install-commands-dev.sh)"
+ * sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/eaglesakura/git-flow-hook/master/installer/install-commands.sh)"
 
 gitリポジトリのフックスクリプト(.git/hooksにインストールされます。リポジトリごとに実行しなければなりません)
  * cd git_repository_root

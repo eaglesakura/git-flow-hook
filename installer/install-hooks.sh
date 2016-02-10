@@ -1,17 +1,14 @@
 #! /bin/sh
 # sh -c "$(curl -fsSL https://raw.githubusercontent.com/eaglesakura/git-flow-hook/master/installer/install-hooks.sh)"
-branch="master"
-
-if [ -e .git/HEAD ]; then
-  echo "install hook-scripts"
-else
-  echo ".git directory not found"
-  exit 1
-fi
-
-#! /bin/sh
 install_dir=".git/hooks"
 branch="master"
+
+if [ -e "$install_dir"]; then
+  echo "install dir -> $install_dir"
+else
+  echo "$install_dir :  directory not found"
+  exit 1
+fi
 
 install_script() {
   echo "install -> $1"

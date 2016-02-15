@@ -26,14 +26,6 @@ read close_comment < logtemp.txt
 rm logtemp.txt
 git commit --amend -m "$close_comment"
 
-if [ -f ./build ]; then
-  ./build
-  # ビルドに失敗したら更新しない
-  if [ $? -ne 0 ]; then
-     exit 1
-  fi
-fi
-
 # ブランチ名を保存
 branch_name=`git rev-parse --git-dir`
 echo $branch_name | sed -e "s/ref: refs\/heads\/feature\///">.branchname.txt
@@ -42,5 +34,6 @@ rm .branchname.txt
 echo "merge $branch_name -> $develop_branch"
 
 # ビルドに成功したからfeatureを閉じる
-git flow feature finish $branch_name
+git flow feature finish
+# git flow feature finish $branch_name
 git status

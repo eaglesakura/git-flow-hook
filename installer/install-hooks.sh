@@ -11,9 +11,9 @@ else
 fi
 
 install_script() {
-  echo "install -> $$1"
-  wget -O "$install_dir/$$1" "https://raw.githubusercontent.com/eaglesakura/git-flow-hook/${branch}/hooks/$$1"
-  chmod 755 "$install_dir/$$1"
+  echo "install -> $1"
+  wget -O "$install_dir/$1" "https://raw.githubusercontent.com/eaglesakura/git-flow-hook/${branch}/hooks/$1"
+  chmod 755 "$install_dir/$1"
 }
 
 install_script "common.sh"

@@ -17,7 +17,6 @@ install_script() {
 }
 
 install_script "eshook-common.sh"
-install_script "eshook-posttopic.sh"
 install_script "git-mktopic"
 install_script "git-endtopic"
 install_script "git-mksubtopic"

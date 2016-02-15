@@ -35,7 +35,7 @@ if [ -f ./build ]; then
 fi
 
 # ブランチ名を保存
-read branch_name < ./.git/HEAD
+branch_name=`git rev-parse --git-dir`
 echo $branch_name | sed -e "s/ref: refs\/heads\/feature\///">.branchname.txt
 read branch_name < .branchname.txt
 rm .branchname.txt

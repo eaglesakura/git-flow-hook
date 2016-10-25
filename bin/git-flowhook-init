@@ -1,0 +1,9 @@
+#! /bin/sh
+if [ -e ".git/" ]; then
+  echo "install hooks"
+else
+  echo ".git directory not found..."
+  exit 1
+fi
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/eaglesakura/git-flow-hook/master/installer/install-hooks.sh)"

@@ -6,4 +6,5 @@ else
   exit 1
 fi
 
+mkdir .git/hooks
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/eaglesakura/git-flow-hook/master/installer/install-hooks.sh)"

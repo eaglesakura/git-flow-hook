@@ -62,7 +62,7 @@ issule(チケット)の対応中、更にブランチを分岐させる場合に
 
 使用例(issue 3103番対応中に、コードのリファクタリングをしたくなった場合)
 <pre>
-git mktopic refactor
+git mksubtopic refactor
 #  feature/id/3103/refactor ブランチが作られます
 </pre>
 
